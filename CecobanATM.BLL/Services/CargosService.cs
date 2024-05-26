@@ -1,4 +1,5 @@
 ﻿using CecobanATM.BLL.Dtos;
+using CecobanATM.BLL.Enumeraciones;
 using CecobanATM.BLL.Interfaces;
 using CecobanATM.DAL.Dtos;
 using CecobanATM.DAL.Interfaces;
@@ -15,13 +16,15 @@ namespace CecobanATM.BLL.Services
 			_repository = repository;
 		}
 
-		public async Task<bool> RegistraCargo(CargoDto CargoData)
+		public async Task<GenericResponse<CargoDto>> RegistraCargo(CargoDto CargoData)
 		{
+
+			var response = new GenericResponse<CargoDto>();
+
 			_repository.CreateConnection(DAL.Enumeraciones.DbConnectionEnum.ATMDB);
 
 			IDictionary<string, object> parameters = new Dictionary<string, object>
 			{
-				{ "Opcion", 1 },
 				{ "Parametros", JsonConvert.SerializeObject(CargoData)}
 			};
 
@@ -31,15 +34,30 @@ namespace CecobanATM.BLL.Services
 
 			if (Response == null)
 			{
-				return false;
+				response.Estado = GenericResponseEnum.Error;
+				response.Mensaje = "Ocurrió un error en la operación";
 			}
 			else
 			{
-				if (Response.Resultado == 1)
-					return true;
-				else
-					return false;
+				switch (Response.Resultado)
+				{
+					case 1:
+						response.Estado = GenericResponseEnum.Correcto;
+						response.Mensaje = "Operación realizada";
+						break;
+					case 2:
+						response.Estado = GenericResponseEnum.Invalido;
+						response.Mensaje = Response.Descripcion;
+						break;
+					default:
+						response.Estado = GenericResponseEnum.Error;
+						response.Mensaje = "Ocurrió un error en la operación";
+						break;
+				}
 			}
+
+			return response;
+
 		}
 	}
 }

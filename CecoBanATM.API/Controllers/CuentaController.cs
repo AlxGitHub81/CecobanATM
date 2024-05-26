@@ -1,12 +1,10 @@
 ﻿using Ardalis.Result.AspNetCore;
 using Ardalis.Result;
 using Asp.Versioning;
-using CecobanATM.BLL.Dtos;
-using CecobanATM.BLL.Services;
 using Microsoft.AspNetCore.Mvc;
 using CecobanATM.BLL.Interfaces;
 
-namespace CecoBanATM.API.Controllers
+namespace CecobanATM.API.Controllers
 {
 	[Route("api/v{version:apiVersion}/[controller]")]
 	[ApiVersion("1.0")]
@@ -21,8 +19,8 @@ namespace CecoBanATM.API.Controllers
 
 		[TranslateResultToActionResult]
 		[HttpGet]
-		[Route("ConsultaMonto")]
-		public async Task<Result<decimal>> ConsultaMonto([FromBody] Int32 Numero)
+		[Route("{Numero}")]
+		public async Task<Result<decimal>> ConsultaMonto([FromRoute] Int32 Numero)
 		{
 			var response = await SrvCuentas.GetById(Numero);
 

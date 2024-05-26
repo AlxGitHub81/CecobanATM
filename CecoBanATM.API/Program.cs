@@ -1,5 +1,5 @@
-using CecoBanATM.API.Extensiones;
-using CecoBanATM.API.Middleware;
+using CecobanATM.API.Extensiones;
+using CecobanATM.API.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -30,6 +30,7 @@ if (app.Environment.IsDevelopment())
 	
 }
 
+app.UseExceptionHandler();
 app.UseHttpsRedirection();
 
 app.UseAuthorization();

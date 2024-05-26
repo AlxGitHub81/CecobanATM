@@ -3,7 +3,7 @@ using CecobanATM.BLL.Dtos.Tarjetas;
 using AutoMapper;
 using CecobanATM.BLL.Dtos;
 
-namespace CecoBanATM.API.Mapper
+namespace CecobanATM.API.Mapper
 {
 	public class AutoMapperProfile:Profile
 	{
@@ -11,7 +11,7 @@ namespace CecoBanATM.API.Mapper
 
 			CreateMap<CambioNIPRequest, CambioNIPDto>();
 			CreateMap<AbonoRequest, AbonoDto>();
-
+			CreateMap<CargoRequest, CargoDto>();
 		}
 	}
 }

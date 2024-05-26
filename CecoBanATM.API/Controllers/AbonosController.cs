@@ -8,8 +8,9 @@ using CecobanATM.BLL.Interfaces;
 using CecobanATM.API.Dtos;
 using AutoMapper;
 using CecobanATM.BLL.Dtos;
+using CecobanATM.BLL.Enumeraciones;
 
-namespace CecoBanATM.API.Controllers
+namespace CecobanATM.API.Controllers
 {
 	[Route("api/v{version:apiVersion}/[controller]")]
 	[ApiVersion("1.0")]
@@ -27,7 +28,7 @@ namespace CecoBanATM.API.Controllers
 
 		[TranslateResultToActionResult]
 		[HttpPost]
-		[Route("RegistraAbono")]
+		//[Route("RegistraAbono")]
 		public async Task<Result<decimal>> Abono([FromBody] AbonoRequest AbonoData)
 		{
 			var validacion = await _AbonoValidator.ValidateAsync(AbonoData);
@@ -41,10 +42,15 @@ namespace CecoBanATM.API.Controllers
 
 			var response = await _ServicioAbonos.RegistraAbono(abono);
 
-			if (response)
-				return Result.Success();
-			else
-				return Result.Error();
+			switch (response.Estado)
+			{
+				case GenericResponseEnum.Correcto:
+					return Result.Success();
+				case GenericResponseEnum.Invalido:
+					return Result.Invalid(new ValidationError() { ErrorMessage = response.Mensaje });
+				default:
+					return Result.Error(response.Mensaje);
+			}
 		}
 	}
 }

@@ -9,7 +9,8 @@ namespace CecobanATM.BLL.Validators
 		public AbonoValidator() {
 
 			RuleFor(x => x.Numero)
-				.NotEmpty().WithMessage("El número de cuenta es requerido");
+				.NotEmpty().WithMessage("El número de cuenta es requerido")
+				.Must(w => w.ToString().Length <= 10).WithMessage("La longitud de la cuenta debe ser máximo 10 caracteres");
 
 			RuleFor(x => x.Monto)
 				.NotEmpty().WithMessage("El importe es requerido");

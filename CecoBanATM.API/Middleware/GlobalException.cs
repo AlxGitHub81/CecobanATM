@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 
-namespace CecoBanATM.API.Middleware
+namespace CecobanATM.API.Middleware
 {
 	public class GlobalExceptionHandler : IExceptionHandler
 	{
@@ -14,7 +14,6 @@ namespace CecoBanATM.API.Middleware
 			this.logger = logger;
 			this.env = env;
 		}
-
 
 
 		public async ValueTask<bool> TryHandleAsync(HttpContext httpContext, Exception exception, CancellationToken cancellationToken)

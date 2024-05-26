@@ -8,7 +8,7 @@ using CecobanATM.DAL.Interfaces;
 using FluentValidation;
 using System.Reflection;
 
-namespace CecoBanATM.API.Extensiones
+namespace CecobanATM.API.Extensiones
 {
 	public static class AddDependenciesExtension
 	{

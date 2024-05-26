@@ -1,5 +1,7 @@
-﻿using CecobanATM.BLL.Dtos;
+﻿using Azure;
+using CecobanATM.BLL.Dtos;
 using CecobanATM.BLL.Dtos.Tarjetas;
+using CecobanATM.BLL.Enumeraciones;
 using CecobanATM.BLL.Interfaces;
 using CecobanATM.DAL.Dtos;
 using CecobanATM.DAL.Interfaces;
@@ -18,8 +20,9 @@ namespace CecobanATM.BLL.Services
 			_repository = repository;
 		}
 
-		public async Task<bool> CambioNip(CambioNIPDto tarjeta)
+		public async Task<GenericResponse<CambioNIPDto>> CambioNip(CambioNIPDto tarjeta)
 		{
+			var response = new GenericResponse<CambioNIPDto>();
 
 			_repository.CreateConnection(DAL.Enumeraciones.DbConnectionEnum.ATMDB);
 
@@ -31,19 +34,33 @@ namespace CecobanATM.BLL.Services
 
 			var SpResponses = await _repository.CallSP<SpGenericResponse>("Tarjetas_SP", parameters);
 
-			var Response = SpResponses.FirstOrDefault();
-
-			if (Response == null)
+			if (SpResponses == null)
 			{
-				return false;
+				response.Estado = GenericResponseEnum.Error;
+				response.Mensaje = "Ocurrió un error en la operación";
 			}
 			else
 			{
-				if (Response.Resultado == 1)
-					return true;
-				else
-					return false;
+				var responseData = SpResponses.FirstOrDefault();
+
+				switch (responseData.Resultado)
+				{
+					case 1:
+						response.Estado = GenericResponseEnum.Correcto;
+						response.Mensaje = "Operación realizada";
+						break;
+					case 2:
+						response.Estado = GenericResponseEnum.Invalido;
+						response.Mensaje = responseData.Descripcion;
+						break;
+					default:
+						response.Estado = GenericResponseEnum.Error;
+						response.Mensaje = "Ocurrió un error en la operación";
+						break;
+				}
 			}
+
+			return response;
 		}
 	}
 }

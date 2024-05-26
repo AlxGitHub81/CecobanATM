@@ -4,6 +4,6 @@ namespace CecobanATM.BLL.Interfaces
 {
 	public interface IAbonos
 	{
-		Task<bool> RegistraAbono(AbonoDto AbonoData);
+		Task<GenericResponse<AbonoDto>> RegistraAbono(AbonoDto AbonoData);
 	}
 }

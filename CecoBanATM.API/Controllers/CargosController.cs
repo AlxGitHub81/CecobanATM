@@ -7,9 +7,10 @@ using Microsoft.AspNetCore.Mvc;
 using FluentValidation;
 using AutoMapper;
 using CecobanATM.BLL.Interfaces;
-using CecoBanATM.API.Dtos;
+using CecobanATM.API.Dtos;
+using CecobanATM.BLL.Enumeraciones;
 
-namespace CecoBanATM.API.Controllers
+namespace CecobanATM.API.Controllers
 {
 	[Route("api/v{version:apiVersion}/[controller]")]
 	[ApiVersion("1.0")]
@@ -27,8 +28,7 @@ namespace CecoBanATM.API.Controllers
 
 		[TranslateResultToActionResult]
 		[HttpPost]
-		[Route("RegistraCargo")]
-		public async Task<Result<decimal>> Cargo([FromBody] CargoRequest CargoData)
+		public async Task<Result<decimal>> RegistraCargo([FromBody] CargoRequest CargoData)
 		{
 
 			var validacion = await _CargoValidator.ValidateAsync(CargoData);
@@ -42,10 +42,16 @@ namespace CecoBanATM.API.Controllers
 
 			var response = await _ServicioCargos.RegistraCargo(abono);
 
-			if (response)
-				return Result.Success();
-			else
-				return Result.Error();
+			switch (response.Estado)
+			{
+				case GenericResponseEnum.Correcto:
+					return Result.Success();
+				case GenericResponseEnum.Invalido:
+					return Result.Invalid(new ValidationError() { ErrorMessage = response.Mensaje });
+				default:
+					return Result.Error(response.Mensaje);
+			}
+
 		}
 	}
 }

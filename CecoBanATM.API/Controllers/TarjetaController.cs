@@ -5,11 +5,12 @@ using Asp.Versioning;
 using AutoMapper;
 using CecobanATM.API.Dtos;
 using CecobanATM.BLL.Dtos.Tarjetas;
+using CecobanATM.BLL.Enumeraciones;
 using CecobanATM.BLL.Interfaces;
 using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
 
-namespace CecoBanATM.API.Controllers
+namespace CecobanATM.API.Controllers
 {
 	[Route("api/v{version:apiVersion}/[controller]")]
 	[ApiVersion("1.0")]
@@ -45,10 +46,15 @@ namespace CecoBanATM.API.Controllers
 
 			var response =await  _TarjetasService.CambioNip(abono);
 
-			if (response)
-				return Result.Success();
-			else
-				return Result.Error();
+			switch (response.Estado)
+			{
+				case GenericResponseEnum.Correcto:
+					return Result.Success();
+				case GenericResponseEnum.Invalido:
+					return Result.Invalid(new ValidationError() { ErrorMessage = response.Mensaje });
+				default:
+					return Result.Error(response.Mensaje);
+			}
 
 		}
 	}

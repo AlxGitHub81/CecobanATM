@@ -1,10 +1,11 @@
-﻿using CecobanATM.BLL.Dtos.Tarjetas;
+﻿using CecobanATM.BLL.Dtos;
+using CecobanATM.BLL.Dtos.Tarjetas;
 
 namespace CecobanATM.BLL.Interfaces
 {
 	public interface ITarjetas
 	{
-		Task<bool> CambioNip(CambioNIPDto tarjeta);
+		Task<GenericResponse<CambioNIPDto>> CambioNip(CambioNIPDto tarjeta);
 
 	}
 }

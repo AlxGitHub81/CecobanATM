@@ -11,7 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Cecoban.DAL\CecobanATM.DAL.csproj" />
+    <ProjectReference Include="..\CecobanATM.DAL\CecobanATM.DAL.csproj" />
   </ItemGroup>
 
 </Project>

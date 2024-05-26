@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34728.123
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CecoBanATM.API", "CecoBanATM.API\CecoBanATM.API.csproj", "{A7A185D5-AAA8-42EC-98D5-03053D977817}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CecobanATM.API", "CecoBanATM.API\CecobanATM.API.csproj", "{A7A185D5-AAA8-42EC-98D5-03053D977817}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CecobanATM.BLL", "CecobanATM.BLL\CecobanATM.BLL.csproj", "{7B770475-6BAE-481F-BA84-CE7A2699BA68}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CecobanATM.BLL", "CecobanATM.BLL\CecobanATM.BLL.csproj", "{7B770475-6BAE-481F-BA84-CE7A2699BA68}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CecobanATM.DAL", "Cecoban.DAL\CecobanATM.DAL.csproj", "{3F8152C3-2168-4905-BC1F-D3446E782F56}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CecobanATM.DAL", "CecobanATM.DAL\CecobanATM.DAL.csproj", "{3F8152C3-2168-4905-BC1F-D3446E782F56}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

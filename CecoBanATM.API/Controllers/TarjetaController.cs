@@ -33,11 +33,11 @@ namespace CecobanATM.API.Controllers
 		[TranslateResultToActionResult]
 		[HttpPost]
 		[Route("CambioNIP")]
-		public async Task<Result> CambioNIP([FromBody] CambioNIPRequest TarjetaData)
+		public async Task<Result<string>> CambioNIP([FromBody] CambioNIPRequest TarjetaData)
 		{
 			var validacion = await _CambioValidator.ValidateAsync(TarjetaData);
 
-			if (!validacion.IsValid)
+			if (!validacion.IsValid)	
 			{
 				return Result.Invalid(validacion.AsErrors());
 			}
@@ -49,7 +49,7 @@ namespace CecobanATM.API.Controllers
 			switch (response.Estado)
 			{
 				case GenericResponseEnum.Correcto:
-					return Result.Success();
+					return Result<string>.Success(response.Mensaje);
 				case GenericResponseEnum.Invalido:
 					return Result.Invalid(new ValidationError() { ErrorMessage = response.Mensaje });
 				default:

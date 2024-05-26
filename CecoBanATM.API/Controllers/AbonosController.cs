@@ -28,8 +28,7 @@ namespace CecobanATM.API.Controllers
 
 		[TranslateResultToActionResult]
 		[HttpPost]
-		//[Route("RegistraAbono")]
-		public async Task<Result<decimal>> Abono([FromBody] AbonoRequest AbonoData)
+		public async Task<Result<string>> Abono([FromBody] AbonoRequest AbonoData)
 		{
 			var validacion = await _AbonoValidator.ValidateAsync(AbonoData);
 
@@ -45,7 +44,7 @@ namespace CecobanATM.API.Controllers
 			switch (response.Estado)
 			{
 				case GenericResponseEnum.Correcto:
-					return Result.Success();
+					return Result<string>.Success(response.Mensaje);
 				case GenericResponseEnum.Invalido:
 					return Result.Invalid(new ValidationError() { ErrorMessage = response.Mensaje });
 				default:

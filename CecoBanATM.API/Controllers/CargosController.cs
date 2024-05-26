@@ -28,7 +28,7 @@ namespace CecobanATM.API.Controllers
 
 		[TranslateResultToActionResult]
 		[HttpPost]
-		public async Task<Result<decimal>> RegistraCargo([FromBody] CargoRequest CargoData)
+		public async Task<Result<string>> RegistraCargo([FromBody] CargoRequest CargoData)
 		{
 
 			var validacion = await _CargoValidator.ValidateAsync(CargoData);
@@ -45,7 +45,7 @@ namespace CecobanATM.API.Controllers
 			switch (response.Estado)
 			{
 				case GenericResponseEnum.Correcto:
-					return Result.Success();
+					return Result<string>.Success(response.Mensaje);
 				case GenericResponseEnum.Invalido:
 					return Result.Invalid(new ValidationError() { ErrorMessage = response.Mensaje });
 				default:

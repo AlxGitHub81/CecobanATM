@@ -4,16 +4,16 @@ GO
 DROP DATABASE IF EXISTS [ATMDB]
 GO
 
-DROP USER IF EXISTS [CecobanATM]
+DROP USER IF EXISTS [CecobanATMUsr]
 GO
 
 IF EXISTS 
     (SELECT name  
      FROM master.sys.server_principals
-     WHERE name = 'CecobanATM_V2')
+     WHERE name = 'CecobanATMUsr')
 BEGIN
     
-	DROP LOGIN [CecobanATM_V2]
+	DROP LOGIN [CecobanATMUsr]
 
 END
 
@@ -22,11 +22,11 @@ END
 CREATE DATABASE [ATMDB];
 GO
 
-ALTER DATABASE [ATMDB] SET  READ_WRITE 
-GO
+--ALTER DATABASE [ATMDB] SET  READ_WRITE 
+--GO
 
 --2) Creación de Login
-CREATE LOGIN [CecobanATM_V2] WITH PASSWORD=N'C3c0b@n%$5', DEFAULT_DATABASE=[ATMDB], DEFAULT_LANGUAGE=[us_english], CHECK_EXPIRATION=ON, CHECK_POLICY=ON
+CREATE LOGIN [CecobanATMUsr] WITH PASSWORD=N'C3c0b@n%$5', DEFAULT_DATABASE=[ATMDB], DEFAULT_LANGUAGE=[us_english], CHECK_EXPIRATION=OFF, CHECK_POLICY=OFF
 
 USE [ATMDB]
 GO
@@ -34,16 +34,14 @@ GO
 
 
 --3) Creación de usuario
-CREATE USER [CecobanATM_Usr_V2] FOR LOGIN [CecobanATM_V2] WITH DEFAULT_SCHEMA=[dbo]
-GO
-ALTER ROLE [db_datareader] ADD MEMBER [CecobanATM_Usr_V2]
-GO
-ALTER ROLE [db_datawriter] ADD MEMBER [CecobanATM_Usr_V2]
+CREATE USER [CecobanATMUsr] FOR LOGIN [CecobanATMUsr] WITH DEFAULT_SCHEMA=[dbo]
 GO
 
 --4) Asignación de roles
 
-ALTER ROLE [db_datareader] ADD MEMBER [CecobanATM_Usr_V2]
+ALTER ROLE [db_datareader] ADD MEMBER [CecobanATMUsr]
 GO
-ALTER ROLE [db_datawriter] ADD MEMBER [CecobanATM_Usr_V2]
+ALTER ROLE [db_datawriter] ADD MEMBER [CecobanATMUsr]
 GO
+
+GRANT EXECUTE TO [CecobanATMUsr] 

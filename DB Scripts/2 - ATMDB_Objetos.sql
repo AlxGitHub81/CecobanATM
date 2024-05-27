@@ -1,20 +1,22 @@
 USE [ATMDB]
 GO
-
-/****** Object:  StoredProcedure [dbo].[Tarjetas_SP]    Script Date: 26/05/2024 05:59:31 p. m. ******/
+/****** Object:  StoredProcedure [dbo].[Tarjetas_SP]    Script Date: 26/05/2024 10:54:18 p. m. ******/
 DROP PROCEDURE IF EXISTS [dbo].[Tarjetas_SP]
 GO
-/****** Object:  StoredProcedure [dbo].[Cuentas_SP]    Script Date: 26/05/2024 05:59:31 p. m. ******/
+/****** Object:  StoredProcedure [dbo].[Cuentas_SP]    Script Date: 26/05/2024 10:54:18 p. m. ******/
 DROP PROCEDURE IF EXISTS [dbo].[Cuentas_SP]
 GO
-/****** Object:  StoredProcedure [dbo].[Cargos_SP]    Script Date: 26/05/2024 05:59:31 p. m. ******/
+/****** Object:  StoredProcedure [dbo].[Cargos_SP]    Script Date: 26/05/2024 10:54:18 p. m. ******/
 DROP PROCEDURE IF EXISTS [dbo].[Cargos_SP]
 GO
-/****** Object:  StoredProcedure [dbo].[Abonos_SP]    Script Date: 26/05/2024 05:59:31 p. m. ******/
+/****** Object:  StoredProcedure [dbo].[Abonos_SP]    Script Date: 26/05/2024 10:54:18 p. m. ******/
 DROP PROCEDURE IF EXISTS [dbo].[Abonos_SP]
 GO
 IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Movimientos]') AND type in (N'U'))
 ALTER TABLE [dbo].[Movimientos] DROP CONSTRAINT IF EXISTS [FK_Movimientos_MovimientosTipo]
+GO
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Movimientos]') AND type in (N'U'))
+ALTER TABLE [dbo].[Movimientos] DROP CONSTRAINT IF EXISTS [FK_Movimientos_Cuentas1]
 GO
 IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Movimientos]') AND type in (N'U'))
 ALTER TABLE [dbo].[Movimientos] DROP CONSTRAINT IF EXISTS [FK_Movimientos_Cuentas]
@@ -52,50 +54,37 @@ GO
 IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Movimientos]') AND type in (N'U'))
 ALTER TABLE [dbo].[Movimientos] DROP CONSTRAINT IF EXISTS [DF_Movimientos_Fecha]
 GO
-/****** Object:  Index [IX_Terminales]    Script Date: 26/05/2024 05:59:31 p. m. ******/
-DROP INDEX IF EXISTS [IX_Terminales] ON [dbo].[Terminales]
-GO
-/****** Object:  Index [IX_Cuentas_Numero]    Script Date: 26/05/2024 05:59:31 p. m. ******/
-DROP INDEX IF EXISTS [IX_Cuentas_Numero] ON [dbo].[Cuentas]
-GO
-/****** Object:  Index [IX_Cuentas_CLABE]    Script Date: 26/05/2024 05:59:31 p. m. ******/
-DROP INDEX IF EXISTS [IX_Cuentas_CLABE] ON [dbo].[Cuentas]
-GO
-/****** Object:  Table [dbo].[Usuarios]    Script Date: 26/05/2024 05:59:31 p. m. ******/
+/****** Object:  Table [dbo].[Usuarios]    Script Date: 26/05/2024 10:54:18 p. m. ******/
 DROP TABLE IF EXISTS [dbo].[Usuarios]
 GO
-/****** Object:  Table [dbo].[Terminales]    Script Date: 26/05/2024 05:59:31 p. m. ******/
+/****** Object:  Table [dbo].[Terminales]    Script Date: 26/05/2024 10:54:18 p. m. ******/
 DROP TABLE IF EXISTS [dbo].[Terminales]
 GO
-/****** Object:  Table [dbo].[Tarjetas]    Script Date: 26/05/2024 05:59:31 p. m. ******/
+/****** Object:  Table [dbo].[Tarjetas]    Script Date: 26/05/2024 10:54:18 p. m. ******/
 DROP TABLE IF EXISTS [dbo].[Tarjetas]
 GO
-/****** Object:  Table [dbo].[MovimientosTipo]    Script Date: 26/05/2024 05:59:31 p. m. ******/
+/****** Object:  Table [dbo].[MovimientosTipo]    Script Date: 26/05/2024 10:54:18 p. m. ******/
 DROP TABLE IF EXISTS [dbo].[MovimientosTipo]
 GO
-/****** Object:  Table [dbo].[Movimientos]    Script Date: 26/05/2024 05:59:31 p. m. ******/
+/****** Object:  Table [dbo].[Movimientos]    Script Date: 26/05/2024 10:54:18 p. m. ******/
 DROP TABLE IF EXISTS [dbo].[Movimientos]
 GO
-/****** Object:  Table [dbo].[Montos]    Script Date: 26/05/2024 05:59:31 p. m. ******/
+/****** Object:  Table [dbo].[Montos]    Script Date: 26/05/2024 10:54:18 p. m. ******/
 DROP TABLE IF EXISTS [dbo].[Montos]
 GO
-/****** Object:  Table [dbo].[CuentasTarjetas]    Script Date: 26/05/2024 05:59:31 p. m. ******/
+/****** Object:  Table [dbo].[CuentasTarjetas]    Script Date: 26/05/2024 10:54:18 p. m. ******/
 DROP TABLE IF EXISTS [dbo].[CuentasTarjetas]
 GO
-/****** Object:  Table [dbo].[CuentasClientes]    Script Date: 26/05/2024 05:59:31 p. m. ******/
+/****** Object:  Table [dbo].[CuentasClientes]    Script Date: 26/05/2024 10:54:18 p. m. ******/
 DROP TABLE IF EXISTS [dbo].[CuentasClientes]
 GO
-/****** Object:  Table [dbo].[Cuentas]    Script Date: 26/05/2024 05:59:31 p. m. ******/
+/****** Object:  Table [dbo].[Cuentas]    Script Date: 26/05/2024 10:54:18 p. m. ******/
 DROP TABLE IF EXISTS [dbo].[Cuentas]
 GO
-/****** Object:  Table [dbo].[Clientes]    Script Date: 26/05/2024 05:59:31 p. m. ******/
+/****** Object:  Table [dbo].[Clientes]    Script Date: 26/05/2024 10:54:18 p. m. ******/
 DROP TABLE IF EXISTS [dbo].[Clientes]
 GO
-/****** Object:  User [CecobanATM]    Script Date: 26/05/2024 05:59:31 p. m. ******/
-DROP USER IF EXISTS [CecobanATM]
-GO
-
-/****** Object:  Table [dbo].[Clientes]    Script Date: 26/05/2024 05:59:32 p. m. ******/
+/****** Object:  Table [dbo].[Clientes]    Script Date: 26/05/2024 10:54:18 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -112,7 +101,7 @@ CREATE TABLE [dbo].[Clientes](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Cuentas]    Script Date: 26/05/2024 05:59:32 p. m. ******/
+/****** Object:  Table [dbo].[Cuentas]    Script Date: 26/05/2024 10:54:18 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -128,7 +117,7 @@ CREATE TABLE [dbo].[Cuentas](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[CuentasClientes]    Script Date: 26/05/2024 05:59:32 p. m. ******/
+/****** Object:  Table [dbo].[CuentasClientes]    Script Date: 26/05/2024 10:54:18 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -148,7 +137,7 @@ CREATE TABLE [dbo].[CuentasClientes](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[CuentasTarjetas]    Script Date: 26/05/2024 05:59:32 p. m. ******/
+/****** Object:  Table [dbo].[CuentasTarjetas]    Script Date: 26/05/2024 10:54:18 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -168,7 +157,7 @@ CREATE TABLE [dbo].[CuentasTarjetas](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Montos]    Script Date: 26/05/2024 05:59:32 p. m. ******/
+/****** Object:  Table [dbo].[Montos]    Script Date: 26/05/2024 10:54:18 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -182,7 +171,7 @@ CREATE TABLE [dbo].[Montos](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Movimientos]    Script Date: 26/05/2024 05:59:32 p. m. ******/
+/****** Object:  Table [dbo].[Movimientos]    Script Date: 26/05/2024 10:54:18 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -201,7 +190,7 @@ CREATE TABLE [dbo].[Movimientos](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[MovimientosTipo]    Script Date: 26/05/2024 05:59:32 p. m. ******/
+/****** Object:  Table [dbo].[MovimientosTipo]    Script Date: 26/05/2024 10:54:18 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -217,7 +206,7 @@ CREATE TABLE [dbo].[MovimientosTipo](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Tarjetas]    Script Date: 26/05/2024 05:59:32 p. m. ******/
+/****** Object:  Table [dbo].[Tarjetas]    Script Date: 26/05/2024 10:54:18 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -234,7 +223,7 @@ CREATE TABLE [dbo].[Tarjetas](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Terminales]    Script Date: 26/05/2024 05:59:32 p. m. ******/
+/****** Object:  Table [dbo].[Terminales]    Script Date: 26/05/2024 10:54:18 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -252,7 +241,7 @@ CREATE TABLE [dbo].[Terminales](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Usuarios]    Script Date: 26/05/2024 05:59:32 p. m. ******/
+/****** Object:  Table [dbo].[Usuarios]    Script Date: 26/05/2024 10:54:18 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -381,24 +370,6 @@ INSERT [dbo].[Usuarios] ([UsuarioId], [Nombre], [ApellidoPaterno], [ApellidoMate
 GO
 SET IDENTITY_INSERT [dbo].[Usuarios] OFF
 GO
-/****** Object:  Index [IX_Cuentas_CLABE]    Script Date: 26/05/2024 05:59:42 p. m. ******/
-CREATE UNIQUE NONCLUSTERED INDEX [IX_Cuentas_CLABE] ON [dbo].[Cuentas]
-(
-	[Clabe] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-GO
-/****** Object:  Index [IX_Cuentas_Numero]    Script Date: 26/05/2024 05:59:42 p. m. ******/
-CREATE UNIQUE NONCLUSTERED INDEX [IX_Cuentas_Numero] ON [dbo].[Cuentas]
-(
-	[Numero] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-GO
-/****** Object:  Index [IX_Terminales]    Script Date: 26/05/2024 05:59:42 p. m. ******/
-CREATE UNIQUE NONCLUSTERED INDEX [IX_Terminales] ON [dbo].[Terminales]
-(
-	[TerminalKey] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-GO
 ALTER TABLE [dbo].[Movimientos] ADD  CONSTRAINT [DF_Movimientos_Fecha]  DEFAULT (getdate()) FOR [Fecha]
 GO
 ALTER TABLE [dbo].[Terminales] ADD  CONSTRAINT [DF_Terminales_TerminalKey]  DEFAULT (newid()) FOR [TerminalKey]
@@ -453,12 +424,17 @@ REFERENCES [dbo].[Terminales] ([TerminalId])
 GO
 ALTER TABLE [dbo].[Movimientos] CHECK CONSTRAINT [FK_Movimientos_Cuentas]
 GO
+ALTER TABLE [dbo].[Movimientos]  WITH CHECK ADD  CONSTRAINT [FK_Movimientos_Cuentas1] FOREIGN KEY([FK_CuentaId])
+REFERENCES [dbo].[Cuentas] ([CuentaId])
+GO
+ALTER TABLE [dbo].[Movimientos] CHECK CONSTRAINT [FK_Movimientos_Cuentas1]
+GO
 ALTER TABLE [dbo].[Movimientos]  WITH CHECK ADD  CONSTRAINT [FK_Movimientos_MovimientosTipo] FOREIGN KEY([FK_TipoMovimientoId])
 REFERENCES [dbo].[MovimientosTipo] ([TipoMovimientoId])
 GO
 ALTER TABLE [dbo].[Movimientos] CHECK CONSTRAINT [FK_Movimientos_MovimientosTipo]
 GO
-/****** Object:  StoredProcedure [dbo].[Abonos_SP]    Script Date: 26/05/2024 05:59:42 p. m. ******/
+/****** Object:  StoredProcedure [dbo].[Abonos_SP]    Script Date: 26/05/2024 10:54:29 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -581,7 +557,7 @@ BEGIN
 	END
 END
 GO
-/****** Object:  StoredProcedure [dbo].[Cargos_SP]    Script Date: 26/05/2024 05:59:42 p. m. ******/
+/****** Object:  StoredProcedure [dbo].[Cargos_SP]    Script Date: 26/05/2024 10:54:29 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -696,7 +672,7 @@ BEGIN
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[Cuentas_SP]    Script Date: 26/05/2024 05:59:42 p. m. ******/
+/****** Object:  StoredProcedure [dbo].[Cuentas_SP]    Script Date: 26/05/2024 10:54:29 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -744,7 +720,7 @@ BEGIN
 	END
 END
 GO
-/****** Object:  StoredProcedure [dbo].[Tarjetas_SP]    Script Date: 26/05/2024 05:59:42 p. m. ******/
+/****** Object:  StoredProcedure [dbo].[Tarjetas_SP]    Script Date: 26/05/2024 10:54:29 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -854,4 +830,3 @@ BEGIN
 	
 END
 GO
-

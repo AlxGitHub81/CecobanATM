@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CecobanATM.BLL", "CecobanAT
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CecobanATM.DAL", "CecobanATM.DAL\CecobanATM.DAL.csproj", "{3F8152C3-2168-4905-BC1F-D3446E782F56}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Proyecto", "Proyecto", "{45EE7591-2444-4567-8C0B-C76C175274B6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,6 +32,11 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{A7A185D5-AAA8-42EC-98D5-03053D977817} = {45EE7591-2444-4567-8C0B-C76C175274B6}
+		{7B770475-6BAE-481F-BA84-CE7A2699BA68} = {45EE7591-2444-4567-8C0B-C76C175274B6}
+		{3F8152C3-2168-4905-BC1F-D3446E782F56} = {45EE7591-2444-4567-8C0B-C76C175274B6}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {BD155F83-EAA6-4CF2-A2FB-FDDEA7C2C894}

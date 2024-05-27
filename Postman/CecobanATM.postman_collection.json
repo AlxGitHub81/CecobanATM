@@ -1,0 +1,153 @@
+{
+	"info": {
+		"_postman_id": "be0f577e-4c1c-459f-b7c6-bde14876a1c4",
+		"name": "CecobanATM",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "13823264"
+	},
+	"item": [
+		{
+			"name": "https://localhost:7267/api/v1/Cuenta/1529672056",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:7267/api/v1/Cuenta/1529672056",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7267",
+					"path": [
+						"api",
+						"v1",
+						"Cuenta",
+						"1529672056"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "https://localhost:7267/api/v1/Tarjeta/CambioNIP/",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"Numero\": \"1529672056\"\r\n    ,\"Codigo\": \"1111\"\r\n    ,\"CodigoNuevo\": \"2345\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:7267/api/v1/Tarjeta/CambioNIP/",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7267",
+					"path": [
+						"api",
+						"v1",
+						"Tarjeta",
+						"CambioNIP",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "https://localhost:7267/api/v1/Abonos/",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"Numero\": \"1529672056\"\r\n    ,\"Monto\": \"500\"\r\n    ,\"Tipo\": \"8\"\r\n    ,\"TerminalKey\": \"cd71832f-73a1-4a97-84d9-c0d8200aac33\"\r\n    ,\"Concepto\": \"Oxxo Suc. Aeropuerto\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:7267/api/v1/Abonos/",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7267",
+					"path": [
+						"api",
+						"v1",
+						"Abonos",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "https://localhost:7267/api/v1/Cargos/",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"Numero\": \"1529672056\"\r\n    ,\"Monto\": \"5000\"\r\n    ,\"Tipo\": \"7\"\r\n    ,\"TerminalKey\": \"cd71832f-73a1-4a97-84d9-c0d8200aac33\"\r\n    ,\"Concepto\": \"Oxxo Suc. Aeropuerto\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:7267/api/v1/Cargos/",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7267",
+					"path": [
+						"api",
+						"v1",
+						"Cargos",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
